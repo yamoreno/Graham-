@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GrahamModelStoreContainer" CdmEntityContainer="GrahamEntities">
+    <EntitySetMapping Name="Notas">
+      <EntityTypeMapping TypeName="GrahamModel.Nota">
+        <MappingFragment StoreEntitySet="Nota">
+          <ScalarProperty Name="IdNota" ColumnName="IdNota" />
+          <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+          <ScalarProperty Name="Nota1" ColumnName="Nota" />
+          <ScalarProperty Name="FechaNota" ColumnName="FechaNota" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="P_Alumno">
+      <EntityTypeMapping TypeName="GrahamModel.P_Alumno">
+        <MappingFragment StoreEntitySet="P_Alumno">
+          <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="P_Materia">
+      <EntityTypeMapping TypeName="GrahamModel.P_Materia">
+        <MappingFragment StoreEntitySet="P_Materia">
+          <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PA_Alumno_Consultar" FunctionName="GrahamModel.Store.PA_Alumno_Consultar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GrahamModel.PA_Alumno_Consultar_Result">
+          <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PA_MateriasActivas_Consultar" FunctionName="GrahamModel.Store.PA_MateriasActivas_Consultar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GrahamModel.PA_MateriasActivas_Consultar_Result">
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Alumno" ColumnName="Alumno" />
+          <ScalarProperty Name="Carrera" ColumnName="Carrera" />
+          <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+          <ScalarProperty Name="Materia" ColumnName="Materia" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="View_MateriaActiva">
+      <EntityTypeMapping TypeName="GrahamModel.View_MateriaActiva">
+        <MappingFragment StoreEntitySet="View_MateriaActiva">
+          <ScalarProperty Name="Materia" ColumnName="Materia" />
+          <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+          <ScalarProperty Name="Carrera" ColumnName="Carrera" />
+          <ScalarProperty Name="Alumno" ColumnName="Alumno" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_ListaAlumnos">
+      <EntityTypeMapping TypeName="GrahamModel.View_ListaAlumnos">
+        <MappingFragment StoreEntitySet="View_ListaAlumnos">
+          <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_ListaPromedio">
+      <EntityTypeMapping TypeName="GrahamModel.View_ListaPromedio">
+        <MappingFragment StoreEntitySet="View_ListaPromedio">
+          <ScalarProperty Name="Promedio" ColumnName="Promedio" />
+          <ScalarProperty Name="Nota" ColumnName="Nota" />
+          <ScalarProperty Name="Materia" ColumnName="Materia" />
+          <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+          <ScalarProperty Name="Carrera" ColumnName="Carrera" />
+          <ScalarProperty Name="Alumno" ColumnName="Alumno" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

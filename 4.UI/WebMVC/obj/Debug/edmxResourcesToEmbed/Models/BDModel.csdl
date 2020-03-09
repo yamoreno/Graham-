@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GrahamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Nota">
+    <Key>
+      <PropertyRef Name="IdNota" />
+    </Key>
+    <Property Name="IdNota" Type="Int32" Nullable="false" />
+    <Property Name="IdMateria" Type="Int32" Nullable="false" />
+    <Property Name="Nota1" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+    <Property Name="FechaNota" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="P_Materia" Relationship="Self.FK_Nota_P_Materia" FromRole="Nota" ToRole="P_Materia" />
+  </EntityType>
+  <EntityType Name="P_Alumno">
+    <Key>
+      <PropertyRef Name="IdAlumno" />
+    </Key>
+    <Property Name="IdAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="P_Materia">
+    <Key>
+      <PropertyRef Name="IdMateria" />
+    </Key>
+    <Property Name="IdMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Notas" Relationship="Self.FK_Nota_P_Materia" FromRole="P_Materia" ToRole="Nota" />
+  </EntityType>
+  <Association Name="FK_Nota_P_Materia">
+    <End Role="P_Materia" Type="Self.P_Materia" Multiplicity="1" />
+    <End Role="Nota" Type="Self.Nota" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="P_Materia">
+        <PropertyRef Name="IdMateria" />
+      </Principal>
+      <Dependent Role="Nota">
+        <PropertyRef Name="IdMateria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GrahamEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Notas" EntityType="Self.Nota" />
+    <EntitySet Name="P_Alumno" EntityType="Self.P_Alumno" />
+    <EntitySet Name="P_Materia" EntityType="Self.P_Materia" />
+    <AssociationSet Name="FK_Nota_P_Materia" Association="Self.FK_Nota_P_Materia">
+      <End Role="P_Materia" EntitySet="P_Materia" />
+      <End Role="Nota" EntitySet="Notas" />
+    </AssociationSet>
+    <FunctionImport Name="PA_Alumno_Consultar" ReturnType="Collection(GrahamModel.PA_Alumno_Consultar_Result)" />
+    <FunctionImport Name="PA_MateriasActivas_Consultar" ReturnType="Collection(GrahamModel.PA_MateriasActivas_Consultar_Result)" />
+    <EntitySet Name="View_MateriaActiva" EntityType="GrahamModel.View_MateriaActiva" />
+    <EntitySet Name="View_ListaAlumnos" EntityType="GrahamModel.View_ListaAlumnos" />
+    <EntitySet Name="View_ListaPromedio" EntityType="GrahamModel.View_ListaPromedio" />
+  </EntityContainer>
+  <ComplexType Name="PA_Alumno_Consultar_Result">
+    <Property Type="Int32" Name="IdAlumno" Nullable="false" />
+    <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="FechaIngreso" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="PA_MateriasActivas_Consultar_Result">
+    <Property Type="String" Name="Identificacion" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Alumno" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Carrera" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="IdMateria" Nullable="false" />
+    <Property Type="String" Name="Materia" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="View_MateriaActiva">
+    <Key>
+      <PropertyRef Name="Identificacion" />
+      <PropertyRef Name="Alumno" />
+      <PropertyRef Name="Carrera" />
+      <PropertyRef Name="IdMateria" />
+      <PropertyRef Name="Materia" />
+    </Key>
+    <Property Name="Identificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Alumno" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Carrera" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdMateria" Type="Int32" Nullable="false" />
+    <Property Name="Materia" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_ListaAlumnos">
+    <Key>
+      <PropertyRef Name="IdAlumno" />
+      <PropertyRef Name="Identificacion" />
+      <PropertyRef Name="FechaIngreso" />
+    </Key>
+    <Property Name="IdAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Identificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="View_ListaPromedio">
+    <Key>
+      <PropertyRef Name="Identificacion" />
+      <PropertyRef Name="Alumno" />
+      <PropertyRef Name="Carrera" />
+      <PropertyRef Name="IdMateria" />
+      <PropertyRef Name="Materia" />
+      <PropertyRef Name="Nota" />
+    </Key>
+    <Property Name="Identificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Alumno" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Carrera" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdMateria" Type="Int32" Nullable="false" />
+    <Property Name="Materia" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Nota" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+    <Property Name="Promedio" Type="Decimal" Precision="3" Scale="2" />
+  </EntityType>
+</Schema>
